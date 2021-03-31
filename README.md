@@ -31,8 +31,9 @@ $ sudo -u postgres_user -i
 $ createdb fsnd_capstone
 
 From the project directory, run:
-
-$ source setup.sh
+```bash
+source setup.sh
+```
 
 ### Migration
 
@@ -52,7 +53,8 @@ export FLASK_APP=app.py
 export FLASK_ENV=development
 flask run
 ```
-For auto reload, append --reload when running app: 
+
+To auto reload app, append --reload when running app: 
 ```
 flask run --reload
 ```
@@ -65,7 +67,7 @@ The application is run on `http://127.0.0.1:5000/` by default and is a proxy in 
 
 Three Roles have been created with different access permissions. To generate an access token for each user, use the link and login access below:
 
-(https://dev-isi.us.auth0.com/authorize?response_type=token&client_id=CBW3nYVQaX4PYPNNGYCPb4fqDimF3jGe&redirect_uri=https://127.0.0.1:8080/home&audience=nutrition_article)
+[API URL](https://dev-isi.us.auth0.com/authorize?response_type=token&client_id=CBW3nYVQaX4PYPNNGYCPb4fqDimF3jGe&redirect_uri=https://127.0.0.1:8080/home&audience=nutrition_article)
 
 1.  App Manager - Has all access permission
     username: appmanager@capsone.com
@@ -97,15 +99,18 @@ Three Roles have been created with different access permissions. To generate an 
     view:client
     view:nutritionist
 
-Add access_token to envrironment variable:
-```
-export JWT_TOKEN=generated_token
-```
+
 
 ### Testing
 
 In order to run tests, from app folder and run the following commands:
 
+Add access_token to envrironment variable:
+```
+export JWT_TOKEN=generated_token
+```
+
+Run test
 ```bash
 python test_app.py
 ```
@@ -137,6 +142,7 @@ The API will return four error types when requests fail:
 * 412: Precondition Failed
 * 404: Resource Not Found
 * 422: Unprocessed Request
+* 405: Method not allowed
 * 500: Internal Server Error
 
 ### Endpoints
@@ -244,16 +250,103 @@ The API will return four error types when requests fail:
     }
     ```
 
-### PATCH /nutritionists
-* Creates new nutritionist
-    * JSON BODY: {"id": 1, "name": "Smaklie Brown", "specialization": "Pediatrics", "email": "smaklie@test.com", "rating": 5}
-    * Required Field: id
+### POST /articles
+* Creates new article
+    * JSON BODY: {"nutritionist": 1, "title": "LACTOSE Intolerance", "content": "Lorem Ipsume Content"}
     * Response:
 
     ```
     {
-        "id": 1,
-        "message": "user data updated",
+        "message": "Article created",
+        "success": true
+    }   
+    ```
+
+### GET /articles
+* GET all articles
+    * Response:
+
+    ```
+    {
+        "message": "Article created",
+        "success": true
+    }   
+    ```
+
+### GET /articles/?client_id=<id>
+* GET articles subscribed to a client
+    * Response:
+
+    ```
+    {
+        "data": [],
+        "success": true
+    } 
+    ```  
+
+### GET /articles?nutritionist_id=<id>
+* GET articles created by a nutritionist
+    * Response:
+
+    ```
+    {
+        "data": [
+            {
+            "content": "Lorem Ipsume Content",
+            "date_created": "Wed, 31 Mar 2021 18:25:26 GMT",
+            "title": "LACTOSE Intolerance"
+        },
+        {
+            "content": "Lorem Ipsume Content",
+            "date_created": "Wed, 31 Mar 2021 18:28:33 GMT",
+            "title": "LACTOSE Intolerance"
+        }
+        ],
+        "success": true
+    } 
+    ```  
+
+### PATCH /articles
+* Update article
+    * JSON Body: {"id": 9, "title": "New Title", "content": "Lorem Ipsume Content"}
+    * Response:
+
+    ```
+    {
+        "id": 9,
+        "message": "Article Updated.",
         "success": true
     }
+    ```  
+
+### DELETE /articles/<id>
+* Delete article
+    * Response:
+
     ```
+    {
+        "id": 10,
+        "success": true
+    }
+    ```  
+
+### POST /subscriptions
+* Subscribe client to nutritionist
+    * JSON Body: {"nutritionist_id": 1, "client_id": 1, "subscription_status": true}
+    * Response:
+
+    ```
+    {
+        "message": "Client subscription added",
+        "success": true
+    }
+    ```  
+
+
+### Authors
+
+Ogbuehi I.C
+
+## Acknowledgements
+
+The awesome team at Udacity, Lectureres, Reviewers, et al.

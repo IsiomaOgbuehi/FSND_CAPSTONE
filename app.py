@@ -344,6 +344,7 @@ def create_app(test_config=None):
     def edit_articles(jwt):
         data = request.get_json()
         article_id = data.get('id')
+        print(article_id)
         try:
             article = Article.query.get(article_id)
             if article:
@@ -460,6 +461,14 @@ def create_app(test_config=None):
             'error': 422,
             'message': 'unprocessed request'
         }), 422
+        
+    @app.errorhandler(405)
+    def internal_server_error(error):
+        return jsonify({
+            'success': False,
+            'error': 405,
+            'message': 'Method not allowed'
+        }), 405
 
     @app.errorhandler(500)
     def internal_server_error(error):
