@@ -310,7 +310,7 @@ def create_app(test_config=None):
         title = data.get('title')
         date_created = datetime.now()
         content = data.get('content')
-        nutritionist = data.get('nutritionist')
+        nutritionist_id = data.get('nutritionist')
 
         if not title or not content or not nutritionist:
             abort(412)
@@ -323,7 +323,7 @@ def create_app(test_config=None):
                 author = Nutritionist.query.get(nutritionist)
                 if author:
                     article = Article(
-                        title=title, date_created=date_created, content=content, nutritionist=author.id)
+                        title=title, date_created=date_created, content=content, nutritionist_id=author.id)
                     article.insert()
                     return jsonify({
                         'success': True,
