@@ -17,15 +17,15 @@ As part of the completion requirements, API Endpoints have been developed to han
 
 ## Getting Started
 
-    * app.py : App File
-    * manage.py : Deployment File to Heroku
-    * models.py : App Models
-    * Procfile : Deployment to Heroku
-    * setup.sh : Set environment variables
-    * test_app.py : Unit Test for Application Endpoints
-    * Readme.me : Readme
-    * :file_folder: auth > auth.py : jwt authentication
-    * :file_folder: migrations : Migrations
+*   app.py : App File
+*   manage.py : Deployment File to Heroku
+*   models.py : App Models
+*   Procfile : Deployment to Heroku
+*   setup.sh : Set environment variables
+*   test_app.py : Unit Test for Application Endpoints
+*   Readme.me : Readme
+:file_folder: auth > auth.py : jwt authentication
+:file_folder: migrations : Migrations
 
 Developers using this project should already have Python3 and pip intalled on their local machines.
 
