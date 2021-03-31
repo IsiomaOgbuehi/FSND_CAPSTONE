@@ -312,7 +312,7 @@ def create_app(test_config=None):
         content = data.get('content')
         nutritionist_id = data.get('nutritionist')
 
-        if not title or not content or not nutritionist:
+        if not title or not content or not nutritionist_id:
             abort(412)
             return jsonify({
                 'success': False,
@@ -320,10 +320,11 @@ def create_app(test_config=None):
             }), 412
         else:
             try:
-                author = Nutritionist.query.get(nutritionist)
+                author = Nutritionist.query.get(nutritionist_id)
                 if author:
                     article = Article(
                         title=title, date_created=date_created, content=content, nutritionist_id=author.id)
+                    print(article)
                     article.insert()
                     return jsonify({
                         'success': True,

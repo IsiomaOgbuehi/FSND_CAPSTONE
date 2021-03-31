@@ -112,11 +112,11 @@ class Article(db.Model):
     nutritionist_id = db.Column(Integer, db.ForeignKey(
         'nutritionists.id'), nullable=False)
 
-    def __init__(self, title, date_created, content, nutritionist):
+    def __init__(self, title, date_created, content, nutritionist_id):
         self.title = title
         self.date_created = date_created
         self.content = content
-        self.nutritionist = nutritionist
+        self.nutritionist_id = nutritionist_id
 
     def insert(self):
         db.session.add(self)
