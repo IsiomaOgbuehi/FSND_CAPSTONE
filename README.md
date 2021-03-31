@@ -23,8 +23,8 @@ As part of the completion requirements, API Endpoints have been developed to han
 *   Procfile : Deployment to Heroku
 *   setup.sh : Set environment variables
 *   test_app.py : Unit Test for Application Endpoints
-*   Readme.me : Readme
-:file_folder: auth > auth.py : jwt authentication
+*   Readme.me : Readme <br>
+:file_folder: auth > auth.py : jwt authentication <br>
 :file_folder: migrations : Migrations
 
 Developers using this project should already have Python3 and pip intalled on their local machines.
