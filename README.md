@@ -67,37 +67,37 @@ The application is run on `http://127.0.0.1:5000/` by default and is a proxy in 
 
 Three Roles have been created with different access permissions. To generate an access token for each user, use the link and login access below:
 
-[API URL](https://dev-isi.us.auth0.com/authorize?response_type=token&client_id=CBW3nYVQaX4PYPNNGYCPb4fqDimF3jGe&redirect_uri=https://127.0.0.1:8080/home&audience=nutrition_article)
+[GENERATE TOKEN](https://dev-isi.us.auth0.com/authorize?response_type=token&client_id=CBW3nYVQaX4PYPNNGYCPb4fqDimF3jGe&redirect_uri=https://127.0.0.1:8080/home&audience=nutrition_article)
 
-1.  App Manager - Has all access permission
-    username: appmanager@capsone.com
-    password: AppManager@111
+1.  App Manager - Has all access permission <br/>
+    username: appmanager@capsone.com<br/>
+    password: AppManager@111<br/>
 
-2.  Nutritionist Manager
-    username: nutritionistmanager@capsone.com
-    password: NutritionistManager@111
-
-    Roles:
-    create:nutritionist
-    edit:nutritionist
-    view:nutritionist
-    create:article
-    read:article
-    edit:article
-    delete:article
-    view:client
-
-3.  Client Manager
-    username: clientmanager@capsone.com
-    password: ClientManager@111
+2.  Nutritionist Manager<br/>
+    username: nutritionistmanager@capsone.com<br/>
+    password: NutritionistManager@111<br/>
 
     Roles:
-    create:client
-    edit:client
-    read:article
-    subscribe:client
-    view:client
-    view:nutritionist
+    create:nutritionist <br/>
+    edit:nutritionist <br/>
+    view:nutritionist <br/>
+    create:article <br/>
+    read:article <br/>
+    edit:article <br/>
+    delete:article <br/>
+    view:client <br/>
+
+3.  Client Manager<br/>
+    username: clientmanager@capsone.com<br/>
+    password: ClientManager@111<br/>
+
+    Roles:<br/>
+    create:client<br/>
+    edit:client<br/>
+    read:article<br/>
+    subscribe:client<br/>
+    view:client<br/>
+    view:nutritionist<br/>
 
 
 
@@ -119,11 +119,11 @@ python test_app.py
 
 ### Getting Started
 
-* Base URL: At present, this app can run locally and is also hosted in cloud server. 
+Base URL: At present, this app can run locally and is also hosted in cloud server. 
 Local URL default is: `http://127.0.0.1:5000/`. 
-Server URL is: `https://fsnd-nutrition-article.herokuapp.com/`
+Server URL is: [LIVE APP URL](https://fsnd-nutrition-article.herokuapp.com/)
 
-* Authentication: Generated token must be added to URL headers to test application.
+**Authentication:** Generated token must be added to URL headers to test application.
 
 ### Error Handling
 
