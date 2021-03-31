@@ -109,7 +109,7 @@ class Article(db.Model):
     date_created = Column(DateTime(timezone=True),
                           default=func.now(), onupdate=func.now())
     content = db.Column(db.Text, nullable=False)
-    nutritionist = db.Column(Integer, db.ForeignKey(
+    nutritionist_id = db.Column(Integer, db.ForeignKey(
         'nutritionists.id'), nullable=False)
 
     def __init__(self, title, date_created, content, nutritionist):

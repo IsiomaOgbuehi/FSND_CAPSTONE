@@ -244,13 +244,13 @@ def create_app(test_config=None):
         if client_id:
 
                 #   qr = db.session.query(Article, Nutritionist).join(Subscription).join(Client).filter(
-                #       Article.nutritionist == Subscription.nutritionist_id,
+                #       Article.nutritionist_id == Subscription.nutritionist_id,
                 #       Client.id == Subscription.client_id,
                 #       Subscription.client_id == client_id
                 #   ).all()
             try:
                 qr = Article.query.join(Nutritionist).join(Subscription).join(Client).filter(
-                    Article.nutritionist == Subscription.nutritionist_id,
+                    Article.nutritionist_id == Subscription.nutritionist_id,
                     Client.id == Subscription.client_id,
                     Subscription.client_id == client_id
                 ).all()
@@ -269,7 +269,7 @@ def create_app(test_config=None):
         if nutritionist_id:
             try:
                 qr = Article.query.join(Nutritionist).filter(
-                    Article.nutritionist == Nutritionist.id,
+                    Article.nutritionist_id == Nutritionist.id,
                     Nutritionist.id == nutritionist_id
                 ).all()
 
@@ -351,8 +351,8 @@ def create_app(test_config=None):
                 article.date_created = datetime.now()
                 article.content = data.get('content') if data.get(
                     'content') else article.content
-                article.nutritionist = data.get('nutritionist') if data.get(
-                    'nutritionist') else article.nutritionist
+                article.nutritionist_id = data.get('nutritionist') if data.get(
+                    'nutritionist') else article.nutritionist_id
 
                 article.update()
                 return jsonify({
