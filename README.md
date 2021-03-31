@@ -16,6 +16,7 @@ As part of the completion requirements, API Endpoints have been developed to han
 
 
 ## Getting Started
+:earth_africa:
 
 Developers using this project should already have Python3 and pip intalled on their local machines.
 
@@ -64,20 +65,21 @@ These commands put the application in development. Working in development mode s
 The application is run on `http://127.0.0.1:5000/` by default and is a proxy in the frontend configuration.
 
 ### Authentication
+:key:
 
 Three Roles have been created with different access permissions. To generate an access token for each user, use the link and login access below:
 
 [GENERATE TOKEN](https://dev-isi.us.auth0.com/authorize?response_type=token&client_id=CBW3nYVQaX4PYPNNGYCPb4fqDimF3jGe&redirect_uri=https://127.0.0.1:8080/home&audience=nutrition_article)
 
 1.  App Manager - Has all access permission <br/>
-    username: appmanager@capsone.com<br/>
+    username: appmanager@capstone.com<br/>
     password: AppManager@111<br/>
 
 2.  Nutritionist Manager<br/>
-    username: nutritionistmanager@capsone.com<br/>
+    username: nutritionistmanager@capstone.com<br/>
     password: NutritionistManager@111<br/>
 
-    Roles:
+    **Roles:**
     create:nutritionist <br/>
     edit:nutritionist <br/>
     view:nutritionist <br/>
@@ -88,10 +90,10 @@ Three Roles have been created with different access permissions. To generate an 
     view:client <br/>
 
 3.  Client Manager<br/>
-    username: clientmanager@capsone.com<br/>
+    username: clientmanager@capstone.com<br/>
     password: ClientManager@111<br/>
 
-    Roles:<br/>
+    **Roles:**<br/>
     create:client<br/>
     edit:client<br/>
     read:article<br/>
@@ -102,6 +104,7 @@ Three Roles have been created with different access permissions. To generate an 
 
 
 ### Testing
+:alembic:
 
 In order to run tests, from app folder and run the following commands:
 
@@ -116,11 +119,12 @@ python test_app.py
 ```
 
 ## API Reference
+:cloud:
 
 ### Getting Started
 
 Base URL: At present, this app can run locally and is also hosted in cloud server. 
-Local URL default is: `http://127.0.0.1:5000/`. 
+Local URL default is: `http://127.0.0.1:5000/`. <br>
 Server URL is: [LIVE APP URL](https://fsnd-nutrition-article.herokuapp.com/)
 
 **Authentication:** Generated token must be added to URL headers to test application.
