@@ -16,7 +16,16 @@ As part of the completion requirements, API Endpoints have been developed to han
 
 
 ## Getting Started
-:earth_africa:
+
+    * app.py : App File
+    * manage.py : Deployment File to Heroku
+    * models.py : App Models
+    * Procfile : Deployment to Heroku
+    * setup.sh : Set environment variables
+    * test_app.py : Unit Test for Application Endpoints
+    * Readme.me : Readme
+    * :file_folder: auth > auth.py : jwt authentication
+    * :file_folder: migrations : Migrations
 
 Developers using this project should already have Python3 and pip intalled on their local machines.
 
@@ -25,6 +34,7 @@ Developers using this project should already have Python3 and pip intalled on th
 From the backend folder run pip install requirements.txt preferably in a virtual environment. All required packages are included in the requirements file.
 
 ### Setup
+:earth_africa:
 
 Edit database connection in setup.sh if you're using a different database, else create database from psql terminal:
 
