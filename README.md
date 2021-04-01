@@ -27,11 +27,20 @@ As part of the completion requirements, API Endpoints have been developed to han
 :file_folder: auth > auth.py : jwt authentication <br>
 :file_folder: migrations : Migrations
 
+## Dependencies
+* python3
+* Flask
+* Database(postgresql recommended)
+
 Developers using this project should already have Python3 and pip intalled on their local machines.
 
 ### Backend
 
 From the backend folder run pip install requirements.txt preferably in a virtual environment. All required packages are included in the requirements file.
+
+```
+pip3 install -r requirements.txt
+```
 
 ### Setup
 :earth_africa:
@@ -57,11 +66,18 @@ flask db upgrade
 ```
 
 ### Run Project
-To run the application run the following commands:
+To run the application run the following commands on Linux:
 
 ```bash
 export FLASK_APP=app.py
 export FLASK_ENV=development
+flask run
+```
+
+On Windows:
+```bash
+set FLASK_APP=app.py
+set FLASK_ENV=development
 flask run
 ```
 
@@ -355,6 +371,42 @@ The API will return four error types when requests fail:
         "success": true
     }
     ```  
+
+### Deploy
+
+***Deploying to Heroku***
+
+Create heroku app:
+```
+heroku create name_of_your_app
+```
+
+Add git remote for Heroku to local repository:
+```
+git remote add heroku heroku_git_url
+```
+
+Add postgresql add on for our database
+```
+heroku addons:create heroku-postgresql:hobby-dev --app name_of_your_application
+```
+
+Check config variables:
+```
+heroku config --app name_of_your_application
+```
+On settings, click on `Reveal Config Vars` and add variables in setup.sh without the `=` sign
+
+
+Push:
+```
+git push heroku master
+```
+
+Run Migration:
+```
+heroku run python manage.py db upgrade --app name_of_your_application
+```
 
 
 ### Authors

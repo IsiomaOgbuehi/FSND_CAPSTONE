@@ -1,5 +1,10 @@
 import os
-from flask import Flask, request, abort, jsonify
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    abort
+)
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Nutritionist, Client, Subscription, Article, db
@@ -27,11 +32,15 @@ def create_app(test_config=None):
         return jsonify({
             'val': 'Halos'
         })
+        
+        
 
     '''
     ROUTES FOR NUTRITIONISTS
-  '''
+    Create, View, and Edit Nutritonist
+    '''
 
+    # View all nutritionist
     @app.route('/nutritionists', methods=['GET'])
     @requires_auth('view:nutritionist')
     def get_all_nutritionist(jwt):
@@ -44,14 +53,15 @@ def create_app(test_config=None):
                 'success': True,
                 'data': nutritionists
             })
-        except AssertionError as e:
-            print (e)
+        except Exception as e:
             abort(404)
             return jsonify({
                 'success': False,
                 'message': 'users not found'
             }), 404
+            
 
+    # Create nutritionist
     @app.route('/nutritionists', methods=['POST'])
     @requires_auth('create:nutritionist')
     def create_nutritionist(jwt):
@@ -76,11 +86,11 @@ def create_app(test_config=None):
                     'email': email,
                     'message': 'Nutritionist Created',
                 })
-        except AssertionError as e:
+        except Exception:
             abort(422)
             
         
-    
+    # Update nutritionist
     @app.route('/nutritionists', methods=['PATCH'])
     @requires_auth('edit:nutritionist')
     def update_nutritionist(jwt):
@@ -100,8 +110,6 @@ def create_app(test_config=None):
                         'specialization') else nutritionist.name
                     nutritionist.email = data.get('email') if data.get(
                         'email') else nutritionist.email
-                    # nutritionist.rating = data.get('rating') if data.get(
-                    #     'rating') else nutritionist.rating
 
                 nutritionist.update()
                 return jsonify({
@@ -115,9 +123,11 @@ def create_app(test_config=None):
                     'success': False,
                     'message': 'user not found'
                 })
-        except:
+        except Exception:
             abort(422)
-
+     
+            
+    # Get specific nutritionist
     @app.route('/nutritionists/<int:id>')
     @requires_auth('view:nutritionist')
     def get_nutritionist(jwt, id):
@@ -137,10 +147,14 @@ def create_app(test_config=None):
         except:
             abort(404)
 
+    
+    
     '''
     ROUTES FOR CLIENTS
+    Create, View, and Edit Clients
     '''
 
+    # Get all clients
     @app.route('/clients', methods=['GET'])
     @requires_auth('view:client')
     def get_all_client(jwt):
@@ -153,10 +167,12 @@ def create_app(test_config=None):
                 'data': clients
             })
 
-        except AssertionError as e:
+        except Exception as e:
             print(e)
             abort(404)
-                
+            
+            
+    # Create client    
     @app.route('/clients', methods=['POST'])
     @requires_auth('create:client')
     def create_client(jwt):
@@ -180,9 +196,12 @@ def create_app(test_config=None):
                     'email': email,
                     'message': 'client created'
                 })
-            except AssertionError as e:
+            except Exception as e:
                 abort(422)
                 
+                
+    
+    # Update Client    
     @app.route('/clients', methods=['PATCH'])
     @requires_auth('edit:client')
     def edit_client(jwt):
@@ -210,9 +229,11 @@ def create_app(test_config=None):
                     'success': False,
                     'message': 'user not found'
                 })
-        except:
+        except Exception:
             abort(422)
+            
 
+    # Get specific client
     @app.route('/clients/<int:id>')
     @requires_auth('view:client')
     def get_client(jwt, id):
@@ -229,25 +250,26 @@ def create_app(test_config=None):
                     'success': False,
                     'message': 'user not found.'
                 }), 404
-        except:
+        except Exception:
             abort(404)
+
+
 
     '''
     ROUTES FOR ARTICLES
-  '''
+    Create, Update, Edit, Delete articles
+    '''
 
+    '''
+        View articles created by nutritionist by passing nutritionist_id as params
+        View articles subscribed by clients by passing client_id as params
+    '''
     @app.route('/articles')
     @requires_auth('read:article')
     def get_articles(jwt):
         client_id = request.args.get('client_id')
         nutritionist_id = request.args.get('nutritionist_id')
         if client_id:
-
-                #   qr = db.session.query(Article, Nutritionist).join(Subscription).join(Client).filter(
-                #       Article.nutritionist_id == Subscription.nutritionist_id,
-                #       Client.id == Subscription.client_id,
-                #       Subscription.client_id == client_id
-                #   ).all()
             try:
                 qr = Article.query.join(Nutritionist).join(Subscription).join(Client).filter(
                     Article.nutritionist_id == Subscription.nutritionist_id,
@@ -259,7 +281,7 @@ def create_app(test_config=None):
                     'success': True,
                     'data': result
                 })
-            except:
+            except Exception:
                 abort(404)
                 return jsonify({
                     'success': False,
@@ -278,8 +300,7 @@ def create_app(test_config=None):
                     'success': True,
                     'data': result
                 })
-            except AssertionError as e:
-                print(e)
+            except Exception as e:
                 abort(404)
                 return jsonify({
                     'success': False,
@@ -295,14 +316,15 @@ def create_app(test_config=None):
                     'success': True,
                     'data': formated_data
                 })
-            except AssertionError as e:
-                print(e)
+            except Exception as e:
                 abort(404)
                 return jsonify({
                     'success': False,
                     'message': 'data not found'
                 }), 404
                 
+                
+    # Create articles
     @app.route('/articles', methods=['POST'])
     @requires_auth('create:article')
     def create_articles(jwt):
@@ -336,9 +358,11 @@ def create_app(test_config=None):
                         'success': False,
                         'message': 'Nutritionist selected not found.'
                     }), 404
-            except AssertionError as e:
+            except Exception as e:
                 abort(422)
                 
+                
+    # Update articles
     @app.route('/articles', methods=['PATCH'])
     @requires_auth('edit:article')
     def edit_articles(jwt):
@@ -368,8 +392,9 @@ def create_app(test_config=None):
                     'success': False,
                     'message': 'Article not found.'
                 }), 422
-        except AssertionError as e:
+        except Exception as e:
             abort(422)
+            
 
     # Delete Article
     @app.route('/articles/<int:article_id>', methods=['DELETE'])
@@ -389,12 +414,16 @@ def create_app(test_config=None):
                     'success': False,
                     'message': 'Article not found'
                 })
-        except:
+        except Exception:
             abort(422)
 
+    
+    '''
+    Subscribe Client to nutritionist
+    Post with client_id and nutritionist_id
+    '''
 
     # Subscribe Client to Nutritionist
-
     @app.route('/subscriptions', methods=['POST'])
     @requires_auth('subscribe:client')
     def subscription(jwt):
@@ -435,8 +464,12 @@ def create_app(test_config=None):
                         'message': 'Client subscription added'
                     })
 
-                except:
+                except Exception:
                     abort(422)
+                    
+    '''
+        HANDLE APP ERRORS
+    '''
 
     @app.errorhandler(404)
     def not_found(error):
