@@ -32,6 +32,8 @@ As part of the completion requirements, API Endpoints have been developed to han
 * Flask
 * Database(postgresql recommended)
 
+A great combination to bring to live API service for this app in a quick implementable process.
+
 Developers using this project should already have Python3 and pip intalled on their local machines.
 
 ### Backend
